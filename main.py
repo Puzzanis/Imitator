@@ -1,19 +1,24 @@
 import sys
 import PyQt5
-from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtWidgets import QApplication, QWidget, QTreeWidgetItem
 from PyQt5 import uic, QtCore, QtWidgets, QtGui
 
+import branch as brn
 
 class App(QWidget):
 
     def __init__(self):
         super().__init__()
+        self.d = {'TestName': {'Ref': 'ABC/DEF', 'Property': [{'Number': '2', 'Zipcode': '0002234',
+                                                               'KeyAvailable': 'Yes'}, {'Number': '3',
+                                                                                        'Zipcode': '2342444'}]}}
         self.start()
 
     def start(self):
         self.ui = uic.loadUi("untitled.ui")
         self.tooltip()
         self.tree = self.ui.treeWidget
+        self.tree.setStyleSheet(brn.STYLESHEET)
         self.tree.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.tree.customContextMenuRequested.connect(self.on_context_menu)
 
@@ -53,6 +58,20 @@ class App(QWidget):
         if a is not None:
             self.popMenu.exec_(self.tree.viewport().mapToGlobal(point))
 
+    def tree_from_dict(self, data=None, parent=None):
+        for key, value in data.items():
+            item = QTreeWidgetItem(parent)
+
+            item.setText(0, key)
+
+            if isinstance(value, dict):
+                self.tree_from_dict(data=value, parent=item)
+            elif isinstance(value, list):
+                [self.tree_from_dict(i, parent=item) for idx, i in enumerate(value)]
+
+            else:
+                item.setText(1, value)
+
     def back(self):
         print('ok')
 
@@ -60,6 +79,7 @@ class App(QWidget):
         print('ok1')
 
     def add(self):
+        self.tree_from_dict(data=self.d, parent=self.tree.currentItem())
         print('ok2')
 
     def delete(self):
@@ -82,6 +102,7 @@ class App(QWidget):
 
     def open_new_window(self):
         print('ok9')
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
