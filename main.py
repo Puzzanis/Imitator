@@ -4,6 +4,8 @@ from PyQt5.QtWidgets import QApplication, QWidget, QTreeWidgetItem
 from PyQt5 import uic, QtCore, QtWidgets, QtGui
 
 import branch as brn
+from dialog_window import ClssDialog
+
 
 class App(QWidget):
 
@@ -12,6 +14,7 @@ class App(QWidget):
         self.d = {'TestName': {'Ref': 'ABC/DEF', 'Property': [{'Number': '2', 'Zipcode': '0002234',
                                                                'KeyAvailable': 'Yes'}, {'Number': '3',
                                                                                         'Zipcode': '2342444'}]}}
+        self.curElement = ''
         self.start()
 
     def start(self):
@@ -52,9 +55,10 @@ class App(QWidget):
         for i, b, d in zip(context, icon, def_list):
             self.addDes = QtWidgets.QAction(QtGui.QIcon(b), i, self.popMenu)
             self.addDes.triggered.connect(d)
+            self.addDes.setEnabled(False) if i == context[1] else self.addDes.setEnabled(True)  # for example
             self.popMenu.addAction(self.addDes)
         a = self.tree.itemAt(point)
-        print(self.tree.currentItem().text(0))
+        # print(self.tree.currentItem().text(0))
         if a is not None:
             self.popMenu.exec_(self.tree.viewport().mapToGlobal(point))
 
@@ -72,6 +76,11 @@ class App(QWidget):
             else:
                 item.setText(1, value)
 
+    def remove_child(self, parent=None):
+        root = self.tree.invisibleRootItem()
+        for item in self.tree.selectedItems():
+            (item.parent() or root).removeChild(item)
+
     def back(self):
         print('ok')
 
@@ -79,10 +88,13 @@ class App(QWidget):
         print('ok1')
 
     def add(self):
-        self.tree_from_dict(data=self.d, parent=self.tree.currentItem())
-        print('ok2')
+        dialog = ClssDialog(self)
+        dialog.ui.show()
+        dialog.ui.exec_()
+        print(self.curElement)
 
     def delete(self):
+        self.remove_child(parent=self.tree.currentItem())
         print('ok3')
 
     def cut(self):
