@@ -17,13 +17,14 @@ class ClssDialog(QtWidgets.QDialog):
 
     def start(self):
         self.ui = uic.loadUi("dialogmenu.ui")
+        self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint)
         self.tree = self.ui.treeWidget
+        self.tree.setCurrentItem(self.tree.topLevelItem(0))
         self.tree.setStyleSheet(brn.STYLESHEET)
         self.okBtn = self.ui.buttonBox.button(QtWidgets.QDialogButtonBox.Ok)
         self.tree.itemClicked.connect(self.clickOff)
-        self.okBtn.clicked.connect(self.prt)
-
-        # self.ui.show()
+        self.ui.buttonBox.accepted.connect(self.prt)
+        self.clickOff()
 
     def clickOff(self):
         if self.tree.currentItem().text(0) in folders:
@@ -36,9 +37,3 @@ class ClssDialog(QtWidgets.QDialog):
         self.main.curElement = self.tree.currentItem().text(0)
         self.ui.close()
 
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = ClssDialog()
-    ex.ui.show()
-    app.exec_()

@@ -8,6 +8,7 @@ from dialog_window import ClssDialog
 
 
 class App(QWidget):
+    table_general = []  # list of all added objects
 
     def __init__(self):
         super().__init__()
@@ -20,11 +21,15 @@ class App(QWidget):
     def start(self):
         self.ui = uic.loadUi("untitled.ui")
         self.tooltip()
+        self.table = self.ui.tableView
         self.tree = self.ui.treeWidget
         self.tree.setStyleSheet(brn.STYLESHEET)
+        self.tree.setCurrentItem(self.tree.topLevelItem(0))
         self.tree.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.tree.customContextMenuRequested.connect(self.on_context_menu)
-
+        self.ui.pushButton_7.clicked.connect(self.add)
+        self.tree.itemClicked.connect(self.click)
+        self.start_table()
         self.ui.show()
 
     def tooltip(self):
@@ -81,6 +86,16 @@ class App(QWidget):
         for item in self.tree.selectedItems():
             (item.parent() or root).removeChild(item)
 
+    def click(self):
+        pass
+
+    def start_table(self):
+        self.model = QtGui.QStandardItemModel(1, 2)
+        self.model.setHorizontalHeaderLabels(['№', 'Название'])
+        self.model.setItem(0, 0, QtGui.QStandardItem('%d' % 1))
+        self.model.verticalHeaderItem(0).setTextAlignment(QtCore.Qt.AlignHCenter)
+        self.table.setModel(self.model)
+
     def back(self):
         print('ok')
 
@@ -91,7 +106,7 @@ class App(QWidget):
         dialog = ClssDialog(self)
         dialog.ui.show()
         dialog.ui.exec_()
-        print(self.curElement)
+        self.table_general.append(self.curElement)
 
     def delete(self):
         self.remove_child(parent=self.tree.currentItem())
