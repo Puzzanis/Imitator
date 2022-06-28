@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>310</width>
+    <height>487</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>310</width>
+    <height>487</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>310</width>
+    <height>487</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Выберете нужный элемент из списка</string>
+  </property>
+  <property name="toolTip">
+   <string notr="true"/>
+  </property>
+  <property name="statusTip">
+   <string notr="true"/>
+  </property>
+  <property name="whatsThis">
+   <string notr="true"/>
+  </property>
+  <property name="inputMethodHints">
+   <set>Qt::ImhNone</set>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>109</x>
+     <y>454</y>
+     <width>200</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+   <property name="centerButtons">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QTreeWidget" name="treeWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>310</width>
+     <height>451</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>310</width>
+     <height>451</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>310</width>
+     <height>451</height>
+    </size>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
+   </property>
+   <attribute name="headerVisible">
+    <bool>false</bool>
+   </attribute>
+   <column>
+    <property name="text">
+     <string/>
+    </property>
+   </column>
+   <item>
+    <property name="text">
+     <string>Логические</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <selectedoff>icon/close-folder.png</selectedoff>
+      <selectedon>icon/open-folder.png</selectedon>
+     </iconset>
+    </property>
+    <item>
+     <property name="text">
+      <string>And</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <disabledoff>icon/AND.png</disabledoff>
+      </iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Front</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <disabledoff>icon/FRONT.png</disabledoff>
+      </iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Not</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <disabledoff>icon/NOT.png</disabledoff>
+      </iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Or</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <disabledoff>icon/OR.png</disabledoff>
+      </iconset>
+     </property>
+    </item>
+   </item>
+   <item>
+    <property name="text">
+     <string>Переключатели</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <selectedoff>icon/close-folder.png</selectedoff>
+      <selectedon>icon/open-folder.png</selectedon>
+     </iconset>
+    </property>
+    <item>
+     <property name="text">
+      <string>Коммутатор входов</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <disabledoff>icon/Comm_in.png</disabledoff>
+      </iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Коммутатор выходов</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <disabledoff>icon/Comm_out.png</disabledoff>
+      </iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Переключатель</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <disabledoff>icon/Swich.png</disabledoff>
+      </iconset>
+     </property>
+    </item>
+   </item>
+   <item>
+    <property name="text">
+     <string>ModBus</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <selectedoff>icon/close-folder.png</selectedoff>
+      <selectedon>icon/open-folder.png</selectedon>
+     </iconset>
+    </property>
+    <item>
+     <property name="text">
+      <string>ModBus TCP Client</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <disabledoff>icon/tcp_client.png</disabledoff>
+      </iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>ModBus TCP Server</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <disabledoff>icon/tcp_server.png</disabledoff>
+      </iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>ModBus RTU Slave</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <disabledoff>icon/rtu_slave.png</disabledoff>
+      </iconset>
+     </property>
+    </item>
+   </item>
+   <item>
+    <property name="text">
+     <string>Преобразователи</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <selectedoff>icon/close-folder.png</selectedoff>
+      <selectedon>icon/open-folder.png</selectedon>
+     </iconset>
+    </property>
+    <item>
+     <property name="text">
+      <string>Шифратор</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <disabledoff>icon/coder.png</disabledoff>
+      </iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Дешифратор</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <disabledoff>icon/decoder.png</disabledoff>
+      </iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Пересчет</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <disabledoff>icon/recalc.png</disabledoff>
+      </iconset>
+     </property>
+    </item>
+   </item>
+   <item>
+    <property name="text">
+     <string>Генераторы</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <selectedoff>icon/close-folder.png</selectedoff>
+      <selectedon>icon/open-folder.png</selectedon>
+     </iconset>
+    </property>
+    <item>
+     <property name="text">
+      <string>Генератор гармонического сигнала</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <disabledoff>icon/sin.png</disabledoff>
+      </iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Генератор дискретных импульсов</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <disabledoff>icon/pulse.png</disabledoff>
+      </iconset>
+     </property>
+    </item>
+   </item>
+   <item>
+    <property name="text">
+     <string>Группы объектов</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledoff>icon/close-folder.png</disabledoff>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Вентилятор</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledoff>icon/ventilation.png</disabledoff>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Клапан</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledoff>icon/free-icon-valve-2497548.png</disabledoff>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Выключатель</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledoff>icon/swicher.png</disabledoff>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Кнопка</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledoff>icon/power-off.png</disabledoff>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Лампочка</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledoff>icon/light.png</disabledoff>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>МНА</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledoff>icon/2193748.png</disabledoff>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Насос</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledoff>icon/pump.png</disabledoff>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Резервуар</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledoff>icon/tank.png</disabledoff>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Задвижка</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledoff>icon/valve.png</disabledoff>
+     </iconset>
+    </property>
+   </item>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
