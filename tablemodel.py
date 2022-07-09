@@ -1,5 +1,17 @@
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt
+
+
+class FixedColumnDelegate(QtWidgets.QStyledItemDelegate):
+    def __init__(self, defaultWidth=None, parent=None):
+        QtWidgets.QStyledItemDelegate.__init__(self, parent)
+        self.defaultWidth = defaultWidth
+
+    def sizeHint(self, option, index):
+        hint = self.sizeHint(self, option, index)
+        if self.defaultWidth is not None:
+            hint.setWidth(self.defaultWidth)
+        return hint
 
 
 class TableModel(QtCore.QAbstractTableModel):
@@ -18,6 +30,8 @@ class TableModel(QtCore.QAbstractTableModel):
     def data(self, index, role):
         if role == Qt.DisplayRole:
             return self._data[index.row()][index.column()]
+        if role == Qt.TextAlignmentRole:
+            return Qt.AlignHCenter + Qt.AlignVCenter
 
 
     def rowCount(self, index):

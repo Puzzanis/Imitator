@@ -1,36 +1,32 @@
-from PyQt5 import QtWidgets, Qt
+import sys
+from PyQt5.QtWidgets import *
 
+class Window(QTreeWidget):
+    def __init__(self):
+        super().__init__()
+        style = QApplication.style()
+        self.dir_open = style.standardIcon(QStyle.SP_DirOpenIcon)
+        self.dir_closed = style.standardIcon(QStyle.SP_DirClosedIcon)
+        self.file_all = style.standardIcon(QStyle.SP_FileIcon)
+        for index in '1234':
+            parent = QTreeWidgetItem(self, ['Dir' + index])
+            parent.setIcon(0, self.dir_closed)
+            for item in 'ABC':
+                child = QTreeWidgetItem(parent, ['File' + index + item])
+                child.setIcon(0, self.file_all)
+        self.itemExpanded.connect(self.handleExpanded)
+        self.itemCollapsed.connect(self.handleCollapsed)
 
-def clickme():
-    index = tree.currentIndex().row()
-    item = model.item(index)
-    print(item.text())
-    item.setIcon(icons[0])
+    def handleExpanded(self, item):
+        item.setIcon(0, self.dir_open)
 
+    def handleCollapsed(self, item):
+        item.setIcon(0, self.dir_closed)
 
-app = Qt.QApplication([])
-main_window = QtWidgets.QWidget()
+if __name__ == "__main__":
 
-btn = Qt.QPushButton("Click me", main_window)
-btn.clicked.connect(clickme)
-
-icons = (Qt.QIcon('tick_green.png'), Qt.QIcon('tick_red.png'))
-model = Qt.QStandardItemModel()
-model.setHorizontalHeaderLabels([u'Заголовок'])
-
-for i in range(5):
-    item = Qt.QStandardItem(f'text {i}')
-    item.setIcon(icons[1])
-    model.appendRow(item)
-
-tree = QtWidgets.QTreeView(main_window)
-tree.setModel(model)
-
-grid = QtWidgets.QGridLayout(main_window)
-grid.setContentsMargins(0, 0, 0, 0)
-grid.addWidget(tree, 0, 0)
-grid.addWidget(btn, 1, 0)
-
-main_window.move(0, 0)
-main_window.show()
-app.exec_()
+    app = QApplication(sys.argv)
+    window = Window()
+    window.setGeometry(600, 50, 400, 300)
+    window.show()
+    sys.exit(app.exec_())

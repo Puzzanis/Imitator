@@ -1,9 +1,11 @@
 import sys
 import PyQt5
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QWidget, QTreeWidgetItem
 from PyQt5 import uic, QtCore, QtWidgets, QtGui
 
 import branch as brn
+import elements
 from dialog_window import ClssDialog
 import tablemodel as tbm
 
@@ -25,12 +27,12 @@ class App(QWidget):
         self.table = self.ui.tableView
         self.tree = self.ui.treeWidget
         self.tree.setStyleSheet(brn.STYLESHEET)
+        self.tree.setAlternatingRowColors(True)
         self.tree.setCurrentItem(self.tree.topLevelItem(0))
         self.tree.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.tree.customContextMenuRequested.connect(self.on_context_menu)
         self.ui.pushButton_7.clicked.connect(self.add)
         self.tree.itemClicked.connect(self.click)
-        self.start_table()
         self.ui.show()
 
     def tooltip(self):
@@ -71,7 +73,7 @@ class App(QWidget):
     def tree_from_dict(self, data=None, parent=None):
         for key, value in data.items():
             item = QTreeWidgetItem(parent)
-
+            self.add_icon(item, key)
             item.setText(0, key)
 
             if isinstance(value, dict):
@@ -82,22 +84,32 @@ class App(QWidget):
             else:
                 item.setText(1, value)
 
+    def add_icon(self, item, key):
+        try:
+            icon = QtGui.QIcon()
+            if key in ['Режим управления', 'Мощность']:
+                icon.addPixmap(QtGui.QPixmap("icon/close-folder.png"), QtGui.QIcon.Selected, QtGui.QIcon.Off)
+                icon.addPixmap(QtGui.QPixmap("icon/open-folder.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+            else:
+                icon.addPixmap(QtGui.QPixmap(elements.icons[key]), QtGui.QIcon.Selected, QtGui.QIcon.Off)
+            item.setIcon(0, icon)
+        except:
+            pass
+
     def remove_child(self, parent=None):
         root = self.tree.invisibleRootItem()
         for item in self.tree.selectedItems():
             (item.parent() or root).removeChild(item)
 
     def click(self):
-        pass
-
-    def start_table(self):
-        data = [[1, '']]
-        col = ['№', 'Название']
-
-        self.model = tbm.TableModel(data, col)
-        self.table.setModel(self.model)
-        self.table.setColumnWidth(0, 10)
-        self.table.setRowHeight(0, 10)
+        if self.tree.currentItem().text(0) == 'Модель':
+            col = ['№', 'Название']
+            if len(self.table_general) > 0:
+                data = [[i, j] for i, j in enumerate(self.table_general, start=1)]
+            else:
+                data = [['1', '']]
+            self.model = tbm.TableModel(data, col)
+            self.table.setModel(self.model)
 
     def back(self):
         print('ok')
@@ -107,8 +119,10 @@ class App(QWidget):
 
     def add(self):
         dialog = ClssDialog(self)
+
         dialog.ui.show()
         dialog.ui.exec_()
+        self.tree_from_dict(elements.elements[self.curElement], self.tree.currentItem())
         self.table_general.append(self.curElement)
 
     def delete(self):
